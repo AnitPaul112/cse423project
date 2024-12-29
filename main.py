@@ -1,7 +1,4 @@
-print('hello')
-print('hello')
-print('hello')
-print('hello')
-
-
-print("3 din aeg")
+from OpenGL.GL import *
+from OpenGL.GLUT import *
+from OpenGL.GLU import *
+import random
