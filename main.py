@@ -292,3 +292,11 @@ def mouseFunc(button, state, x, y):#srijon
                     fishgamepoint = 0
                 ballbuttonON = False
     
+    if play == True and button == GLUT_RIGHT_BUTTON and state == GLUT_DOWN: #firework logic
+       if  -width + 400 <= a <= width - 400 and height-600<=b<=height-400:
+            fireworkLst.append([a, b, 3]) #initial radius 3
+            if cat_y < 20:
+                cat_y+=70
+                glutTimerFunc(300, come_down, 0)
+           
+   
