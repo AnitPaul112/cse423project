@@ -401,5 +401,37 @@ def mouseFunc(button, state, x, y):#srijon
             if cat_y < 20:
                 cat_y+=70
                 glutTimerFunc(300, come_down, 0)
-           
+
+def keyboardListener(key, x,y): #ball move logic
+    global ballx,cat_x,goal,ballgamepoint,health,ballbuttonON, rightgoalpost
+    if play==True and key== b'w' and abs(cat_x-ballx)<=40: #in 40 range cat an ball
+        if health<=1:
+            ballbuttonON=False
+            print("Game over")
+            
+        else:    
+            ballx+=40 #move by 40 on kick
+            if ballx>270:
+                ballx=280
+                goal=False
+                if rightgoalpost == True:
+                    ballgamepoint+=1
+                    print("Yay goal! Score:",ballgamepoint)
+        
+    if play==True and key== b'q' and abs(cat_x-ballx)<=40:  
+        if health<=1:
+            ballbuttonON=False
+            print("Game over")
+            
+        else:   
+            ballx-=40
+            if ballx<-270:
+                ballx=-280  
+                goal=True 
+                if rightgoalpost == False:
+                    ballgamepoint+=1
+                    print("Yay goal! Score:",ballgamepoint)
+        
+          
+    glutPostRedisplay()  
       
