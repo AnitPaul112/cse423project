@@ -448,8 +448,6 @@ def hungry_announce(val): #hungry logic
             health-=1
             if health <= 2:
                 print("Enough playing. Let's go eat first")
-        elif hungry==0:
-             print("I am full")
         hungry+=0.5
         hungry=min(11,hungry)   
     glutPostRedisplay()
