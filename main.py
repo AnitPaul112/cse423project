@@ -440,5 +440,29 @@ def circlepoints(x, y, center):
     glVertex2f(-y0 + ax, x0 + ay)
     glVertex2f(-x0 + ax, y0 + ay)
     glEnd()
+
+
+def draw_cat():
+    global cat_x, cat_y
+
+    # Draw the head
+    glColor3f(0, 0, 0)  # Black color for the head
+    glPointSize(1.5)    # Set the size of points
+    circle(40, (cat_x, cat_y - 175))  # Draw the head at (cat_x, cat_y - 175)
+
+    # Draw the eyes
+    glColor3f(1, 1, 1)  # White color for the eye placeholders
+    glPointSize(2)      # Set size for the eyes
+    circle(6, (cat_x - 15, cat_y - 180))  # Left eye placeholder
+    circle(6, (cat_x + 15, cat_y - 180))  # Right eye placeholder
+
+
+def showScreen():
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    glLoadIdentity()
+    draw_cat()  # Call the draw_cat function to display the cat
+    glutSwapBuffers()
+
+
       
       
