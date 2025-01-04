@@ -478,36 +478,36 @@ def draw_cat():  #sadman
         print("The cat is awake and calm.")  
         glColor3f(1, 1, 1)  
         glPointSize(2)
-        circle(6, (cat_x - 15, cat_y - 180))  # Left eye sclera
-        circle(6, (cat_x + 15, cat_y - 180))  # Right eye sclera
+        circle(6, (cat_x - 15, cat_y - 180))  
+        circle(6, (cat_x + 15, cat_y - 180))  
 
-        glColor3f(0, 0, 0)  # Black for pupils
-        circle(3, (cat_x - 15, cat_y - 180))  # Left eye pupil
-        circle(3, (cat_x + 15, cat_y - 180))  # Right eye pupil
+        glColor3f(0, 0, 0)  
+        circle(3, (cat_x - 15, cat_y - 180))  
+        circle(3, (cat_x + 15, cat_y - 180)) 
 
-        glColor3f(1, 1, 1)  # White for reflections
-        circle(1, (cat_x - 13, cat_y - 178))  # Left eye reflection
-        circle(1, (cat_x + 17, cat_y - 178))  # Right eye reflection
-
-
+        glColor3f(1, 1, 1)  
+        circle(1, (cat_x - 13, cat_y - 178)) 
+        circle(1, (cat_x + 17, cat_y - 178))  
 
 
 
 
 
-#basic
+
+
+#basicdraw
 def draw_foodpan():  #sadman
     global food_pan_empty, food, play, xaxis, yaxis 
 
     if play == False:  
         glPointSize(4)
-        glColor3f(1, 0.2, 0.2)  # Red color
+        glColor3f(1, 0.2, 0.2)  #red
         draw_line(xaxis - 80, -(yaxis - 30), xaxis - 6, -(yaxis - 30))  #B
         draw_line(xaxis - 66, -(yaxis - 11), xaxis - 20, -(yaxis - 11))  #T
         draw_line(xaxis - 80, -(yaxis - 30), xaxis - 66, -(yaxis - 11))  #L
         draw_line(xaxis - 20, -(yaxis - 11), xaxis - 6, -(yaxis - 30))  #R
 
-        # food
+        #food
         glPointSize(3)
         glColor3f(0.26, 0.09, 0.09)  #Brown
         for item in food:
@@ -519,64 +519,63 @@ def draw_foodpan():  #sadman
 def draw_bed():  #sadman
     global play
 
-    if play == False:  # Only draw the bed in the home screen
-        # Draw the bed frame
+    if play == False:  
         glPointSize(5)
-        glColor3f(0, 0, 0)  # Black color for the bed outline
-        draw_line(xaxis - 590, yaxis - 580, xaxis - 500, yaxis - 580)  # Bottom edge
-        draw_line(xaxis - 590, yaxis - 550, xaxis - 590, yaxis - 590)  # Left edge
+        glColor3f(0, 0, 0) 
+        draw_line(xaxis - 590, yaxis - 580, xaxis - 500, yaxis - 580)  #b
+        draw_line(xaxis - 590, yaxis - 550, xaxis - 590, yaxis - 590)  #l
         draw_line(xaxis - 500, yaxis - 580, xaxis - 500, yaxis - 590)  # Right edge
 
-        # Fill the bed
-        glColor3f(0.4, 0.2, 0.05)  # Brown color for the bed interior
+        
+        glColor3f(0.4, 0.2, 0.05)  #brown
         draw_line(xaxis - 585, yaxis - 575, xaxis - 500, yaxis - 575)
 
-        # Draw the pillow
-        glColor3f(0.7, 0.2, 0.05)  # Lighter brown for the pillow
+        #pillow
+        glColor3f(0.7, 0.2, 0.05)  #light brown
         glPointSize(3)
-        circle(5, (xaxis - 582, yaxis - 567))  # Pillow as a small circle
+        circle(5, (xaxis - 582, yaxis - 567))  #pillow
 
 
-def draw_window():  # sadman
+def draw_window():  #sadman
     global day, play, d2n, n2d
 
-    if play == False:  # Only draw the window on the home screen
-        glColor3f(0, 0, 0)  # Black color for the window outline
+    if play == False:  
+        glColor3f(0, 0, 0)  
         glPointSize(2)
 
-        # Draw the window frame
-        draw_line(-width + 400, height - 400, width - 600, height - 400)  # Top edge
-        draw_line(-width + 400, height - 600, width - 600, height - 600)  # Bottom edge
-        draw_line(-width + 400, height - 400, -width + 400, height - 600)  # Left edge
-        draw_line(width - 600, height - 400, width - 600, height - 600)  # Right edge
+        #windowbox
+        draw_line(-width + 400, height - 400, width - 600, height - 400)  #t
+        draw_line(-width + 400, height - 600, width - 600, height - 600)  #b
+        draw_line(-width + 400, height - 400, -width + 400, height - 600)  #l
+        draw_line(width - 600, height - 400, width - 600, height - 600)  #r
 
-        # Sky
-        if day > 0.9:  # Daytime
-            glColor3f(0, 0.7, 1)  # Blue sky
-        else:  # Nighttime
+        #sky
+        if day > 0.9:  #day
+            glColor3f(0, 0.7, 1)  #blue
+        else:  #night
             g = max(0.1, day - 0.4)
             b = max(0.1, day - 0.2)
-            glColor3f(0, g, b)  # Gradual transition to darker sky
+            glColor3f(0, g, b)  #light to dark gradually
         glPointSize(198)
-        draw_line(-width + 500, height - 500, width - 699, height - 500)  # Sky fill
+        draw_line(-width + 500, height - 500, width - 699, height - 500)  #skyfill
 
-        # Sun or Moon
-        if day > 0.4:  # Daytime (sun)
-            glColor3f(1, 1, 0)  # Yellow for the sun
-        else:  # Nighttime (moon)
-            glColor3f(0.8, 0.8, 1)  # Pale blue for the moon
-        circle(15, (-width + 450, height - 450))  # Draw sun/moon
+        #sunmoon
+        if day > 0.4:  #sun
+            glColor3f(1, 1, 0)  #yellow
+        else:  # moon
+            glColor3f(0.8, 0.8, 1)  
+        circle(15, (-width + 450, height - 450))  
 
 
 def windowcross():  # sadman
-    if play == False:  # Only draw crossbars on the home screen
-        glColor3f(0, 0, 0)  # Black for crossbars
+    if play == False:  
+        glColor3f(0, 0, 0)  
         glPointSize(1)
 
-        # Vertical cross
+        #y
         draw_line(width - 700, height - 400, width - 700, height - 600)
 
-        # Horizontal cross
+        #x
         draw_line(-width + 400, height - 500, width - 600, height - 500)
 
 
@@ -584,7 +583,7 @@ def draw_fish():  # sadman
     global left, fish_x, fish_y
     if play == True and fishON == True:
         glPointSize(2)
-        glColor3f(0.0, 0.0, 1.0)  # Set color to blue
+        glColor3f(0.0, 0.0, 1.0)  #blue
         draw_line(fish_x - 15, fish_y, fish_x + 15, fish_y)
         draw_line(fish_x - 15, fish_y - 20, fish_x + 15, fish_y - 20)
         draw_line(fish_x - 15, fish_y, fish_x - 27, fish_y - 10)
@@ -592,7 +591,7 @@ def draw_fish():  # sadman
         draw_line(fish_x + 15, fish_y, fish_x + 40, fish_y - 15)
         draw_line(fish_x + 15, fish_y - 20, fish_x + 40, fish_y - 5)
         draw_line(fish_x + 40, fish_y - 15, fish_x + 40, fish_y - 5)
-        # Eye
+        #eye
         circle(1, (fish_x - 12, fish_y - 7))
 
 
@@ -602,9 +601,9 @@ def fish_animate(val):  # sadman
     global fish_x, fish_y, fishON, fishgamepoint, left
     if fishON == True:
         if left == False:
-            fish_x -= 3  # Move left
+            fish_x -= 3  #move to left
         else:
-            fish_x += 3  # Move right
+            fish_x += 3  #move to right
 
         if fish_x > width - 350 or fish_x < width - 850:
             print("Game over")
