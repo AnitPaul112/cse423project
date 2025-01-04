@@ -5,7 +5,8 @@ import random
 import math
 
 width, height = 600, 600
-
+cat_x = 0.0
+cat_y = -50
 #center
 xaxis = width/2
 yaxis = height/2
@@ -17,7 +18,19 @@ else:
 fish_y = -100
 fish_xbutton = width -350 #upperrightfish
 fish_ybutton = 170
-
+food =[]
+food_pan_empty = False
+eating = False
+nose = (0,0)
+hungry=10
+health =5
+energy = 5
+unhappy = False
+sleep = False
+day = 1
+d2n = True #day to night
+n2d = False #night to day
+play = False
 ballx=-280
 ballbutton = -280 #upperrightball
 ballbuttonON = False
@@ -26,11 +39,11 @@ fishgamepoint = 0
 ballgamepoint = 0
 goal=True
 rightgoalpost= True #the goalpost is on right or left
-
-cat_x = 0.0 #cat will be show from center
-cat_y = -50 #below change if needed
+fireworkCircleRadius = 0.5
+fireworksCircleSpeed = 6
+fireworksCircleColor = [1,0,0]
+firework = False
 fireworkLst = []
-food =[]
 food.append((xaxis-67, -(yaxis-35)))
 food.append((xaxis-57, -(yaxis-35)))
 food.append((xaxis-47, -(yaxis-35)))
@@ -576,10 +589,7 @@ def day_announce(val):
 
 #sadman
 
-sleep = True  
-firework = True  
-sleep = False
-firework = False  
+
 
 def circle(radius, center): #sadman
     d = 1 - radius  #decision var
