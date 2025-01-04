@@ -9,7 +9,21 @@ width, height = 600, 600
 #center
 xaxis = width/2
 yaxis = height/2
+fish_x = random.uniform((xaxis/2)+100, (-xaxis/2)-100) #width-850
+if fish_x < 0: #to determine which way the fish should move
+    left = True
+else:
+    left = False
+fish_y = -100
+fish_xbutton = width -350 #upperrightfish
+fish_ybutton = 170
 
+ballx=-280
+ballbutton = -280 #upperrightball
+ballbuttonON = False
+fishON = False
+fishgamepoint = 0
+ballgamepoint = 0
 
 cat_x = 0.0 #cat will be show from center
 cat_y = -50 #below change if needed
@@ -78,7 +92,7 @@ def playbutton(): #anit
         draw_line(width - 331, height - 361, width-331, height-356)
         draw_line(width - 335, height - 355,width - 331, height - 356)
         draw_line(width - 331, height - 361, width-335, height-361)
-        
+
 def come_down(val):#srijon
     global cat_y, hungry 
     if cat_y > -50:
