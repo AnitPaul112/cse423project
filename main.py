@@ -402,7 +402,7 @@ def mouseFunc(button, state, x, y):#srijon
                 cat_y+=70
                 glutTimerFunc(300, come_down, 0)
 
-def keyboardListener(key, x,y): #ball move logic
+def keyboardListener(key, x,y): #srijon ball move logic
     global ballx,cat_x,goal,ballgamepoint,health,ballbuttonON, rightgoalpost
     if play==True and key== b'w' and abs(cat_x-ballx)<=40: #in 40 range cat an ball
         if health<=1:
@@ -437,7 +437,7 @@ def keyboardListener(key, x,y): #ball move logic
 
 
 
-def hungry_announce(val): #hungry logic
+def hungry_announce(val): #srijon  hungry logic
     global hungry,health, sleep
     glutTimerFunc(6000, hungry_announce, 0)
     if sleep == False:
@@ -451,4 +451,31 @@ def hungry_announce(val): #hungry logic
         hungry+=0.5
         hungry=min(11,hungry)   
     glutPostRedisplay()
-      
+
+
+def sleep_announce(val): # srijon sleep announcement and helth logic
+    global sleep, hungry, day, health
+    glutTimerFunc(6000, sleep_announce, 0)
+    if sleep == True and health < 5:
+        health += 1
+    glutPostRedisplay() 
+
+def day_announce(val): #srijon day announcemnt
+    global day, d2n, n2d, sleep, health
+    glutTimerFunc(5000, day_announce, 0)
+    if day <= 0.1:
+        n2d = True
+        d2n = False
+    if day >=1:
+        d2n = True
+        n2d = False
+    if n2d == True and day < 1:
+        day += 0.1
+    elif d2n == True and day >= 0.1:
+        day -= 0.1
+    if day <=0.4 and sleep == False:
+        print("Time to sleep.")
+        health-=1
+    if day >=0.7 and sleep == True:
+        print('Time to wakey wakey.')
+    glutPostRedisplay()
