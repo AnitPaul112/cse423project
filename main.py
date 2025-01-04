@@ -277,6 +277,14 @@ def fcirclepoints(x,y,center): #anit
         glVertex2f(-y0 + ax, x0 + ay)
         glVertex2f(-x0 + ax, y0 + ay)
     glEnd()     
+def fireworks_animate(v):#anit
+    global fireworkCircleRadius, fireworksCircleSpeed, play
+
+    if len(fireworkLst) > 0:
+        for i in range(len(fireworkLst)):
+            fireworkLst[i][2] += fireworksCircleSpeed
+        glutPostRedisplay()
+        
 def playroomtoys(): #anit
     global rightgoalpost
     #ball
