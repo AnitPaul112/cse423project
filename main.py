@@ -254,8 +254,9 @@ def playroomtoys(): #anit
             draw_line(290,-290,290,-220)
             draw_line(250,-280,250,-210)
             draw_line(290,-220,250,-210)
+
         else:
-            rightgoalpost = False
+            rightgoalpost = False 
             glColor3f(0,0,0)
             draw_line(-290,-290,-290,-220)
             draw_line(-250,-280,-250,-210)
