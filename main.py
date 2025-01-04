@@ -9,7 +9,23 @@ width, height = 600, 600
 #center
 xaxis = width/2
 yaxis = height/2
+fish_x = random.uniform((xaxis/2)+100, (-xaxis/2)-100) #width-850
+if fish_x < 0: #to determine which way the fish should move
+    left = True
+else:
+    left = False
+fish_y = -100
+fish_xbutton = width -350 #upperrightfish
+fish_ybutton = 170
 
+ballx=-280
+ballbutton = -280 #upperrightball
+ballbuttonON = False
+fishON = False
+fishgamepoint = 0
+ballgamepoint = 0
+goal=True
+rightgoalpost= True #the goalpost is on right or left
 
 cat_x = 0.0 #cat will be show from center
 cat_y = -50 #below change if needed
@@ -78,7 +94,71 @@ def playbutton(): #anit
         draw_line(width - 331, height - 361, width-331, height-356)
         draw_line(width - 335, height - 355,width - 331, height - 356)
         draw_line(width - 331, height - 361, width-335, height-361)
-        
+
+        #ballbutton
+        if ballbuttonON == False:
+            glPointSize(4)
+            glColor3f(1,0,0)
+            circle(16,(-ballbutton-30,200))
+            glColor3f(1,0,1)
+            circle(11,(-ballbutton-30,200))
+            glColor3f(1,0,0)
+            circle(7,(-ballbutton-30,200))
+            circle(4,(-ballbutton-30,200))
+        if ballbuttonON == True:
+            glPointSize(8)
+            glColor3f(1,0,0)
+            circle(16,(-ballbutton-30,200))
+            circle(12,(-ballbutton-30,200))
+            circle(8,(-ballbutton-30,200))
+            circle(5,(-ballbutton-30,200))
+        #fishbutton
+        if fishON == False:
+            glPointSize(2)
+            glColor3f(0.0, 0.0, 1.0)  # Set color to blue
+            draw_line(fish_xbutton - 15, fish_ybutton, fish_xbutton + 15, fish_ybutton)
+            draw_line(fish_xbutton - 15, fish_ybutton-20, fish_xbutton + 15, fish_ybutton-20)
+            draw_line(fish_xbutton - 15, fish_ybutton, fish_xbutton - 27, fish_ybutton - 10)
+            draw_line(fish_xbutton - 15, fish_ybutton-20, fish_xbutton - 27, fish_ybutton - 10)
+            draw_line(fish_xbutton + 15, fish_ybutton, fish_xbutton + 40, fish_ybutton - 15)
+            draw_line(fish_xbutton + 15, fish_ybutton-20, fish_xbutton + 40, fish_ybutton-5)
+            draw_line(fish_xbutton + 40, fish_ybutton - 15, fish_xbutton + 40, fish_ybutton-5)
+            #eye
+            circle(1, (fish_xbutton - 12, fish_ybutton -7))
+        if fishON == True:
+            glPointSize(8)
+            glColor3f(1,0,0)
+            circle(16,(-ballbutton-30,150))
+            circle(12,(-ballbutton-30,150))
+            circle(8,(-ballbutton-30,150))
+            circle(5,(-ballbutton-30,150))
+
+def playroomtoys(): #anit
+    global rightgoalpost
+    #ball
+    if ballbuttonON == True:
+        glPointSize(4)
+        glColor3f(1,0,0)
+        circle(16,(ballx,-275))
+        glColor3f(1,0,1)
+        circle(11,(ballx,-275))
+        glColor3f(1,0,0)
+        circle(7,(ballx,-275))
+        circle(4,(ballx,-275))
+        #goalpost
+        if goal==True:
+            rightgoalpost = True
+            glColor3f(0,0,0)
+            draw_line(290,-290,290,-220)
+            draw_line(250,-280,250,-210)
+            draw_line(290,-220,250,-210)
+        else:
+            rightgoalpost = False
+            glColor3f(0,0,0)
+            draw_line(-290,-290,-290,-220)
+            draw_line(-250,-280,-250,-210)
+            draw_line(-290,-220,-250,-210)
+
 def come_down(val):#srijon
     global cat_y, hungry 
     if cat_y > -50:
