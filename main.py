@@ -256,5 +256,22 @@ def mouseFunc(button, state, x, y):#srijon
     else:
         eating=False    
 
-           
+    if play == False and 0<=x<=100 and height-40<=y<=height and -xaxis+60 <=cat_x<-xaxis+160: # sleep logic
+        if button == GLUT_LEFT_BUTTON and state == GLUT_DOWN:
+            if day >= 0.4 and sleep == False:
+                print("It's still day! You should playy!")
+            elif unhappy == True:
+                print("Eat first.")
+            else:
+                zzz = True
+        if zzz == True and button == GLUT_LEFT_BUTTON and state == GLUT_DOWN and sleep == False:
+            sleep = True
+            cat_y += 20
+            cat_x = -230
+        elif sleep == True and button == GLUT_LEFT_BUTTON and state == GLUT_DOWN:
+            sleep = False
+            cat_y -= 20
+            if day <= 0.4:
+                print('Sleep some more.')
+    
    
