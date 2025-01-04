@@ -410,8 +410,15 @@ def mouseFunc(button, state, x, y):#srijon
 
 
 #sadman
-def circle(radius, center):
-    d = 1 - radius  # Decision variable
+
+sleep = True  
+firework = True  
+sleep = False
+firework = False  
+
+
+def circle(radius, center): #sadman
+    d = 1 - radius  #decision var
     x = 0
     y = radius
     circlepoints(x, y, center)
@@ -443,27 +450,174 @@ def circlepoints(x, y, center):
     glEnd()
 
 
-def draw_cat():
-    global cat_x, cat_y
+def draw_cat():  #sadman
+    global cat_x, cat_y, sleep, firework
 
-    # Draw the head
-    glColor3f(0, 0, 0)  # Black color for the head
-    glPointSize(1.5)    # Set the size of points
-    circle(40, (cat_x, cat_y - 175))  # Draw the head at (cat_x, cat_y - 175)
+    glColor3f(0, 0, 0)  #black
 
-    # Draw the eyes
-    glColor3f(1, 1, 1)  # White color for the eye placeholders
-    glPointSize(2)      # Set size for the eyes
-    circle(6, (cat_x - 15, cat_y - 180))  # Left eye placeholder
-    circle(6, (cat_x + 15, cat_y - 180))  # Right eye placeholder
+    #head
+    glPointSize(1.5)
+    circle(40, (cat_x, cat_y - 175))  
+
+    # Eyes
+    if firework:  
+        print("The cat is excited by the fireworks!")
+        glPointSize(2)
+        draw_line(cat_x + 8, cat_y - 182, cat_x + 13, cat_y - 173)  
+        draw_line(cat_x + 13, cat_y - 175, cat_x + 16, cat_y - 183)
+        draw_line(cat_x - 8, cat_y - 182, cat_x - 13, cat_y - 173)  
+        draw_line(cat_x - 13, cat_y - 173, cat_x - 18, cat_y - 182)
+
+    elif sleep:  
+        print("The cat is sleeping... Zzz")  
+        glPointSize(2)
+        draw_line(cat_x + 8, cat_y - 182, cat_x + 14, cat_y - 182)  
+        draw_line(cat_x - 8, cat_y - 182, cat_x - 14, cat_y - 182)  
+
+    else:  
+        print("The cat is awake and calm.")  
+        glColor3f(1, 1, 1)  
+        glPointSize(2)
+        circle(6, (cat_x - 15, cat_y - 180))  
+        circle(6, (cat_x + 15, cat_y - 180))  
+
+        glColor3f(0, 0, 0)  
+        circle(3, (cat_x - 15, cat_y - 180))  
+        circle(3, (cat_x + 15, cat_y - 180)) 
+
+        glColor3f(1, 1, 1)  
+        circle(1, (cat_x - 13, cat_y - 178)) 
+        circle(1, (cat_x + 17, cat_y - 178))  
 
 
-def showScreen():
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-    glLoadIdentity()
-    draw_cat()  # Call the draw_cat function to display the cat
-    glutSwapBuffers()
+
+
+
+
+
+#basicdraw
+def draw_foodpan():  #sadman
+    global food_pan_empty, food, play, xaxis, yaxis 
+
+    if play == False:  
+        glPointSize(4)
+        glColor3f(1, 0.2, 0.2)  #red
+        draw_line(xaxis - 80, -(yaxis - 30), xaxis - 6, -(yaxis - 30))  #B
+        draw_line(xaxis - 66, -(yaxis - 11), xaxis - 20, -(yaxis - 11))  #T
+        draw_line(xaxis - 80, -(yaxis - 30), xaxis - 66, -(yaxis - 11))  #L
+        draw_line(xaxis - 20, -(yaxis - 11), xaxis - 6, -(yaxis - 30))  #R
+
+        #food
+        glPointSize(3)
+        glColor3f(0.26, 0.09, 0.09)  #Brown
+        for item in food:
+            circle(4, (item[0], item[1]))
+
+
+
+
+def draw_bed():  #sadman
+    global play
+
+    if play == False:  
+        glPointSize(5)
+        glColor3f(0, 0, 0) 
+        draw_line(xaxis - 590, yaxis - 580, xaxis - 500, yaxis - 580)  #b
+        draw_line(xaxis - 590, yaxis - 550, xaxis - 590, yaxis - 590)  #l
+        draw_line(xaxis - 500, yaxis - 580, xaxis - 500, yaxis - 590)  # Right edge
+
+        
+        glColor3f(0.4, 0.2, 0.05)  #brown
+        draw_line(xaxis - 585, yaxis - 575, xaxis - 500, yaxis - 575)
+
+        #pillow
+        glColor3f(0.7, 0.2, 0.05)  #light brown
+        glPointSize(3)
+        circle(5, (xaxis - 582, yaxis - 567))  #pillow
+
+
+def draw_window():  #sadman
+    global day, play, d2n, n2d
+
+    if play == False:  
+        glColor3f(0, 0, 0)  
+        glPointSize(2)
+
+        #windowbox
+        draw_line(-width + 400, height - 400, width - 600, height - 400)  #t
+        draw_line(-width + 400, height - 600, width - 600, height - 600)  #b
+        draw_line(-width + 400, height - 400, -width + 400, height - 600)  #l
+        draw_line(width - 600, height - 400, width - 600, height - 600)  #r
+
+        #sky
+        if day > 0.9:  #day
+            glColor3f(0, 0.7, 1)  #blue
+        else:  #night
+            g = max(0.1, day - 0.4)
+            b = max(0.1, day - 0.2)
+            glColor3f(0, g, b)  #light to dark gradually
+        glPointSize(198)
+        draw_line(-width + 500, height - 500, width - 699, height - 500)  #skyfill
+
+        #sunmoon
+        if day > 0.4:  #sun
+            glColor3f(1, 1, 0)  #yellow
+        else:  # moon
+            glColor3f(0.8, 0.8, 1)  
+        circle(15, (-width + 450, height - 450))  
+
+
+def windowcross():  # sadman
+    if play == False:  
+        glColor3f(0, 0, 0)  
+        glPointSize(1)
+
+        #y
+        draw_line(width - 700, height - 400, width - 700, height - 600)
+
+        #x
+        draw_line(-width + 400, height - 500, width - 600, height - 500)
+
+
+def draw_fish():  # sadman
+    global left, fish_x, fish_y
+    if play == True and fishON == True:
+        glPointSize(2)
+        glColor3f(0.0, 0.0, 1.0)  #blue
+        draw_line(fish_x - 15, fish_y, fish_x + 15, fish_y)
+        draw_line(fish_x - 15, fish_y - 20, fish_x + 15, fish_y - 20)
+        draw_line(fish_x - 15, fish_y, fish_x - 27, fish_y - 10)
+        draw_line(fish_x - 15, fish_y - 20, fish_x - 27, fish_y - 10)
+        draw_line(fish_x + 15, fish_y, fish_x + 40, fish_y - 15)
+        draw_line(fish_x + 15, fish_y - 20, fish_x + 40, fish_y - 5)
+        draw_line(fish_x + 40, fish_y - 15, fish_x + 40, fish_y - 5)
+        #eye
+        circle(1, (fish_x - 12, fish_y - 7))
+
 
 
       
-      
+def fish_animate(val):  # sadman
+    global fish_x, fish_y, fishON, fishgamepoint, left
+    if fishON == True:
+        if left == False:
+            fish_x -= 3  #move to left
+        else:
+            fish_x += 3  #move to right
+
+        if fish_x > width - 350 or fish_x < width - 850:
+            print("Game over")
+            print("Final Fishing Score: ", fishgamepoint)
+            fishON = False
+            fishgamepoint = 0
+            fish_x = random.uniform((xaxis / 2) + 100, (-xaxis / 2) - 100)
+            if fish_x < 0:
+                left = True
+            else:
+                left = False
+            fish_y = -100
+
+    glutTimerFunc(20, fish_animate, 0)
+    glutPostRedisplay()
+
+
