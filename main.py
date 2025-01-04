@@ -24,6 +24,8 @@ ballbuttonON = False
 fishON = False
 fishgamepoint = 0
 ballgamepoint = 0
+goal=True
+rightgoalpost= True #the goalpost is on right or left
 
 cat_x = 0.0 #cat will be show from center
 cat_y = -50 #below change if needed
@@ -131,7 +133,31 @@ def playbutton(): #anit
             circle(8,(-ballbutton-30,150))
             circle(5,(-ballbutton-30,150))
 
-
+def playroomtoys(): #anit
+    global rightgoalpost
+    #ball
+    if ballbuttonON == True:
+        glPointSize(4)
+        glColor3f(1,0,0)
+        circle(16,(ballx,-275))
+        glColor3f(1,0,1)
+        circle(11,(ballx,-275))
+        glColor3f(1,0,0)
+        circle(7,(ballx,-275))
+        circle(4,(ballx,-275))
+        #goalpost
+        if goal==True:
+            rightgoalpost = True
+            glColor3f(0,0,0)
+            draw_line(290,-290,290,-220)
+            draw_line(250,-280,250,-210)
+            draw_line(290,-220,250,-210)
+        else:
+            rightgoalpost = False
+            glColor3f(0,0,0)
+            draw_line(-290,-290,-290,-220)
+            draw_line(-250,-280,-250,-210)
+            draw_line(-290,-220,-250,-210)
 
 def come_down(val):#srijon
     global cat_y, hungry 
