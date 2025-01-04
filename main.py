@@ -26,7 +26,59 @@ hungry = 10
 
 
 
+def playbutton(): #anit
+    global play, fish_xbutton, fish_ybutton
+    glColor3f(0,0.4,1)
+    glPointSize(2)
+    #box
+    draw_line(width - 320, height - 350, width - 370, height- 350)
+    draw_line(width - 320, height - 370, width - 370, height- 370)
+    draw_line(width - 315, height - 365, width-315, height-355)
+    draw_line(width - 375, height - 365, width-375, height-355)
 
+    draw_line(width - 370, height - 350, width-375, height-355)
+    draw_line(width - 370, height- 370, width-375, height-365)
+    draw_line(width - 320, height - 350, width-315, height-355)
+    draw_line(width - 320, height - 370, width - 315, height - 365)
+    
+    #play
+    glPointSize(2)
+    if play == False:
+        #P
+        draw_line(width - 365, height - 365, width-365, height-355)
+        draw_line(width - 361, height - 361, width-361, height-356)
+        draw_line(width - 365, height - 355,width - 361, height - 356)
+        draw_line(width - 361, height - 361, width-365, height-361)
+        #L
+        draw_line(width - 353, height - 365, width-353, height-355)
+        draw_line(width - 353, height - 365, width-348, height - 365)
+        #A
+        draw_line(width - 337, height - 365, width-340, height-355) #\
+        draw_line(width - 343, height - 365, width-340, height-354) #/
+        draw_line(width - 337, height-362, width-342,height-362)
+        #Y
+        draw_line(width - 330, height - 362, width-333, height-355) #-10
+        draw_line(width - 330, height - 362, width-327, height-355)
+        draw_line(width - 330, height - 362, width-330, height-366)
+    else:
+        #stop
+        # S
+        draw_line(width - 365, height - 355, width - 360, height-355)
+        draw_line(width - 365, height - 360, width - 360, height-360)
+        draw_line(width - 365, height - 365, width - 360, height-365)
+        draw_line(width - 365, height - 355, width - 365, height-360)
+        draw_line(width - 360, height-360, width - 360, height-365)
+        #T
+        draw_line(width - 357, height - 355, width - 350, height-355)
+        draw_line(width - 354, height - 355, width - 354, height-365)
+        #O
+        circle(4.3, (width-343, height-360))
+        #P
+        draw_line(width - 335, height - 365, width-335, height-355)
+        draw_line(width - 331, height - 361, width-331, height-356)
+        draw_line(width - 335, height - 355,width - 331, height - 356)
+        draw_line(width - 331, height - 361, width-335, height-361)
+        
 def come_down(val):#srijon
     global cat_y, hungry 
     if cat_y > -50:
