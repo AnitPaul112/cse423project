@@ -274,4 +274,21 @@ def mouseFunc(button, state, x, y):#srijon
             if day <= 0.4:
                 print('Sleep some more.')
     
-   
+    if width-370<=a<=width-320 and height-370<=b<=height-350: #play logic
+        if button == GLUT_LEFT_BUTTON and state == GLUT_DOWN:
+            if play == False:
+                if unhappy == False:
+                    if sleep==True:
+                        print("To play, you need energy. Finish sleeping.")
+                    else:
+                        play = True
+                else:
+                    print("To play, you need to eat first.")
+            else:
+                play = False
+                if fishON == True:
+                    print("Fishing game Final Score: ", fishgamepoint)
+                    fishON = False
+                    fishgamepoint = 0
+                ballbuttonON = False
+    
