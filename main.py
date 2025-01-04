@@ -215,5 +215,46 @@ def mouseFunc(button, state, x, y):#srijon
             fishON = False
             print("Fishing Game Final Score: ",fishgamepoint)
             fishgamepoint = 0
+
+ #eat or not eat xaxis = 300, yaxis = 300
+    if play == False and (xaxis-80) <= a <= (xaxis-6) and -(yaxis-11) <= b <= -(yaxis-30)  and 170<=cat_x<=230: # food pan logic
+        if button == GLUT_LEFT_BUTTON and state == GLUT_DOWN:
+            if not food_pan_empty:
+                if len(food) > 1 and hungry != 0:
+                    eating=True
+                    food.pop()
+                    hungry=max(0,hungry-1)
+                    health+=1
+                    health=min(health,4)
+                    if hungry==0:
+                        health=5
+                elif len(food) > 1 and hungry == 0: #moiukh
+                    print("I am not hungry anymore.")
+                elif len(food)==1:
+                    food.pop()
+                    hungry=max(0,hungry-1)
+                    print("Oh no! Refill food")
+                    food_pan_empty = True
+                    eating=False
+                elif len(food)==0:
+                    food_pan_empty = True
+                    eating=False
+            else:#refil food
+                food_pan_empty = False
+                food.append((xaxis-67, -(yaxis-35)))
+                food.append((xaxis-57, -(yaxis-35)))
+                food.append((xaxis-47, -(yaxis-35)))
+                food.append((xaxis-37, -(yaxis-35)))
+                food.append((xaxis-27, -(yaxis-35)))
+                food.append((xaxis-17, -(yaxis-35)))  
+                food.append((xaxis-63, -(yaxis-45)))
+                food.append((xaxis-53, -(yaxis-45)))
+                food.append((xaxis-43, -(yaxis-45)))
+                food.append((xaxis-33, -(yaxis-45)))
+                food.append((xaxis-23, -(yaxis-45)))
+
+    else:
+        eating=False    
+
            
    
