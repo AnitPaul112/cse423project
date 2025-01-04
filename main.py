@@ -111,3 +111,29 @@ def specialKeyListener(key,x, y):#srijon fish game logic + move logic
 
 
     glutPostRedisplay() 
+
+
+
+def mouseFunc(button, state, x, y):#srijon
+    global fishgamepoint, ballgamepoint, fish_x, fish_y, fishON, ballbuttonON, ballbutton, firework, fireworksCircleSpeed, fireworkCircleRadius, play, food_pan_empty, food, eating, cat_x,cat_y, nose, hungry, health, unhappy, sleep, day
+    
+    nose=(cat_x,cat_y-195)
+    a = x-(600/2) #translate it to game cordinate
+    b = (600 /2)-y
+    zzz = False
+    if play == True and width-370<=a<=width-320 and height-410<=b<=height-390: #ball game on off by button range
+        if fishON == False and button == GLUT_LEFT_BUTTON and state == GLUT_DOWN and ballbuttonON == False:
+            ballbuttonON = True
+        elif fishON == False and button == GLUT_LEFT_BUTTON and state == GLUT_DOWN and ballbuttonON == True:
+            ballbuttonON = False
+            print("Ball Game Final Score: ",ballgamepoint)
+            ballgamepoint=0
+    if play == True and width-370<=a<=width-320 and height-460<=b<=height-420: #fish game by button range
+        if fishON == False and button == GLUT_LEFT_BUTTON and state == GLUT_DOWN and ballbuttonON == False:
+            fishON = True
+        elif fishON == True and button == GLUT_LEFT_BUTTON and state == GLUT_DOWN and ballbuttonON == False:
+            fishON = False
+            print("Fishing Game Final Score: ",fishgamepoint)
+            fishgamepoint = 0
+           
+   
