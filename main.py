@@ -434,4 +434,23 @@ def keyboardListener(key, x,y): #ball move logic
         
           
     glutPostRedisplay()  
+
+
+
+def hungry_announce(val): #hungry logic
+    global hungry,health, sleep
+    glutTimerFunc(6000, hungry_announce, 0)
+    if sleep == False:
+        if hungry==11 and play==False:
+            health-=1
+            print("I am hungry. Let's go eat")   
+        elif hungry==11 and play==True:
+            health-=1
+            if health <= 2:
+                print("Enough playing. Let's go eat first")
+        elif hungry==0:
+             print("I am full")
+        hungry+=0.5
+        hungry=min(11,hungry)   
+    glutPostRedisplay()
       
