@@ -93,6 +93,46 @@ def playbutton(): #anit
         draw_line(width - 335, height - 355,width - 331, height - 356)
         draw_line(width - 331, height - 361, width-335, height-361)
 
+        #ballbutton
+        if ballbuttonON == False:
+            glPointSize(4)
+            glColor3f(1,0,0)
+            circle(16,(-ballbutton-30,200))
+            glColor3f(1,0,1)
+            circle(11,(-ballbutton-30,200))
+            glColor3f(1,0,0)
+            circle(7,(-ballbutton-30,200))
+            circle(4,(-ballbutton-30,200))
+        if ballbuttonON == True:
+            glPointSize(8)
+            glColor3f(1,0,0)
+            circle(16,(-ballbutton-30,200))
+            circle(12,(-ballbutton-30,200))
+            circle(8,(-ballbutton-30,200))
+            circle(5,(-ballbutton-30,200))
+        #fishbutton
+        if fishON == False:
+            glPointSize(2)
+            glColor3f(0.0, 0.0, 1.0)  # Set color to blue
+            draw_line(fish_xbutton - 15, fish_ybutton, fish_xbutton + 15, fish_ybutton)
+            draw_line(fish_xbutton - 15, fish_ybutton-20, fish_xbutton + 15, fish_ybutton-20)
+            draw_line(fish_xbutton - 15, fish_ybutton, fish_xbutton - 27, fish_ybutton - 10)
+            draw_line(fish_xbutton - 15, fish_ybutton-20, fish_xbutton - 27, fish_ybutton - 10)
+            draw_line(fish_xbutton + 15, fish_ybutton, fish_xbutton + 40, fish_ybutton - 15)
+            draw_line(fish_xbutton + 15, fish_ybutton-20, fish_xbutton + 40, fish_ybutton-5)
+            draw_line(fish_xbutton + 40, fish_ybutton - 15, fish_xbutton + 40, fish_ybutton-5)
+            #eye
+            circle(1, (fish_xbutton - 12, fish_ybutton -7))
+        if fishON == True:
+            glPointSize(8)
+            glColor3f(1,0,0)
+            circle(16,(-ballbutton-30,150))
+            circle(12,(-ballbutton-30,150))
+            circle(8,(-ballbutton-30,150))
+            circle(5,(-ballbutton-30,150))
+
+
+
 def come_down(val):#srijon
     global cat_y, hungry 
     if cat_y > -50:
