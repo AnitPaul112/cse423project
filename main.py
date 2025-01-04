@@ -25,14 +25,16 @@ food.append((xaxis-17, -(yaxis-35)))
 hungry = 10
 
 
-def come_down(val):
+
+
+def come_down(val):#srijon
     global cat_y, hungry 
     if cat_y > -50:
         cat_y-=70
     hungry += 0.5
     glutPostRedisplay() 
 
-def specialKeyListener(key,x, y):
+def specialKeyListener(key,x, y):#srijon fish game logic + move logic
     global left, sleep, cat_x, cat_y, fish_x, fish_y, fishON, fishgamepoint
 
     if key== GLUT_KEY_LEFT and cat_x >= -xaxis+62 and sleep == False:
