@@ -591,192 +591,323 @@ def day_announce(val):
 
 
 
-def circle(radius, center): #sadman
-    d = 1 - radius  #decision var
-    x = 0
-    y = radius
-    circlepoints(x, y, center)
-    while x < y:
-        if d < 0:
-            d += 2 * x + 3
-            x += 1
+def circle(radius,center): # sadman circle
+    d=1-radius
+    x=0
+    y=radius 
+    circlepoints(x,y,center)
+    while(x<y):
+        if(d<0):
+            d=d+ 2*x + 3
+            x+=1
         else:
-            d += 2 * x - 2 * y + 5
-            x += 1
-            y -= 1
-        circlepoints(x, y, center)
-
-def circlepoints(x, y, center):
+            d= d+ 2*x - 2*y + 5 
+            x+=1
+            y-=1
+        circlepoints(x,y,center)       
+def circlepoints(x,y,center):# sadman circle point
     global xaxis, yaxis
     glBegin(GL_POINTS)
-    x0 = x / xaxis
-    y0 = y / yaxis
-    ax = center[0] / xaxis
-    ay = center[1] / yaxis
-    glVertex2f(x0 + ax, y0 + ay)
-    glVertex2f(y0 + ax, x0 + ay)
-    glVertex2f(y0 + ax, -x0 + ay)
-    glVertex2f(x0 + ax, -y0 + ay)
-    glVertex2f(-x0 + ax, -y0 + ay)
-    glVertex2f(-y0 + ax, -x0 + ay)
-    glVertex2f(-y0 + ax, x0 + ay)
-    glVertex2f(-x0 + ax, y0 + ay)
+    
+    x0=x/xaxis
+    y0=y/yaxis
+    ax=center[0]/xaxis
+    ay=center[1]/yaxis
+    glVertex2f(x0+ax,y0+ay)
+    glVertex2f(y0+ax,x0+ay)
+    glVertex2f(y0+ax,-x0+ay)
+    glVertex2f(x0+ax,-y0+ay)
+    glVertex2f(-x0+ax,-y0+ay)
+    glVertex2f(-y0+ax,-x0+ay)
+    glVertex2f(-y0+ax,x0+ay)
+    glVertex2f(-x0+ax,y0+ay)
     glEnd()
 
-def draw_cat():  #sadman
-    global cat_x, cat_y, sleep, firework
-
-    glColor3f(0, 0, 0)  #black
-
-    #head
+def draw_cat(): #sadman
+    global cat_x, cat_y, eating, nose, unhappy, sleep
+    glColor3f(0, 0, 0)
+    
+    # Head
     glPointSize(1.5)
-    circle(40, (cat_x, cat_y - 175))  
-
+    circle(40, (cat_x, cat_y-175))
+    glPointSize(4)
     # Eyes
-    if firework:  
-        print("The cat is excited by the fireworks!")
+    if firework == True:
         glPointSize(2)
-        draw_line(cat_x + 8, cat_y - 182, cat_x + 13, cat_y - 173)  
-        draw_line(cat_x + 13, cat_y - 175, cat_x + 16, cat_y - 183)
-        draw_line(cat_x - 8, cat_y - 182, cat_x - 13, cat_y - 173)  
-        draw_line(cat_x - 13, cat_y - 173, cat_x - 18, cat_y - 182)
+        draw_line(cat_x+8,cat_y-182, cat_x+13,cat_y-173)
+        draw_line(cat_x+13,cat_y-175, cat_x+16,cat_y-183)
 
-    elif sleep:  
-        print("The cat is sleeping... Zzz")  
+        draw_line(cat_x-8,cat_y-182, cat_x-13,cat_y-173)
+        draw_line(cat_x-13,cat_y-173, cat_x-18,cat_y-182)
+    elif sleep == False:
+        glColor3f(0, 0, 0)  # Black color for the eyes
+        circle(3, (cat_x-10, cat_y-182))
+        circle(3, (cat_x-10, cat_y-179))
+        circle(3, (cat_x-10, cat_y-175))
+        circle(2, (cat_x-10, cat_y-172))
+        circle(1, (cat_x-10, cat_y-171))
+        circle(0.5, (cat_x-10, cat_y-170))
+        circle(2, (cat_x-10, cat_y-185))
+        circle(1, (cat_x-10, cat_y-187))
+        
+
+        circle(3, (cat_x+10, cat_y-182))
+        circle(3, (cat_x+10, cat_y-179))
+        circle(3, (cat_x+10, cat_y-175))
+        circle(2, (cat_x+10, cat_y-172))
+        circle(1, (cat_x+10, cat_y-171))
+        circle(0.5, (cat_x+10, cat_y-170))
+        circle(2, (cat_x+10, cat_y-185))
+        circle(1, (cat_x+10, cat_y-187))
+
+        glColor3f(1,1,1)
         glPointSize(2)
-        draw_line(cat_x + 8, cat_y - 182, cat_x + 14, cat_y - 182)  
-        draw_line(cat_x - 8, cat_y - 182, cat_x - 14, cat_y - 182)  
-
-    else:  
-        print("The cat is awake and calm.")  
-        glColor3f(1, 1, 1)  
+        circle(1, (cat_x-8, cat_y-185))
+        circle(1, (cat_x+12, cat_y-185))
+    else: #sleeepy eyes
         glPointSize(2)
-        circle(6, (cat_x - 15, cat_y - 180))  
-        circle(6, (cat_x + 15, cat_y - 180))  
+        draw_line(cat_x+8,cat_y-182, cat_x+14,cat_y-182)
+        draw_line(cat_x-8,cat_y-182, cat_x-14,cat_y-182)
+    # Nose
+    glPointSize(4)
+    glColor3f(1,0.8,0.8)  # Red color for the nose
+    circle(2, (cat_x,cat_y-195))
+    circle(1,(cat_x+3,cat_y-195))
+    circle(1,(cat_x-3,cat_y-195))
+    nose=(cat_x,cat_y-195)
+   # body
+    glPointSize(2)
+    glColor3f(0,0,0)
+    draw_line(cat_x-12,cat_y-215, cat_x-30, cat_y-240)
+    draw_line(cat_x+12,cat_y-240, cat_x-30, cat_y-240)
+    draw_line(cat_x+12,cat_y-240, cat_x+10, cat_y-215)
 
-        glColor3f(0, 0, 0)  
-        circle(3, (cat_x - 15, cat_y - 180))  
-        circle(3, (cat_x + 15, cat_y - 180)) 
+    #ears
+    draw_line(cat_x-40,cat_y-162, cat_x-62, cat_y-127)
+    draw_line(cat_x-17,cat_y-137, cat_x-43, cat_y-115)
+    draw_line(cat_x-62, cat_y-127, cat_x-45, cat_y-115)
+    draw_line(cat_x-62, cat_y-127, cat_x-49, cat_y-132)
+    draw_line(cat_x-45, cat_y-115, cat_x-49, cat_y-132)
+    draw_line(cat_x+14,cat_y-137, cat_x+59, cat_y-112)
+    draw_line(cat_x+36,cat_y-158, cat_x+59, cat_y-112)
+    glPointSize(5)
+    glColor3f(1,0.8,0.8)
+    draw_line(cat_x-34,cat_y-147, cat_x-38, cat_y-139)
+    draw_line(cat_x-29,cat_y-143, cat_x-38, cat_y-139)
+    draw_line(cat_x+28,cat_y-143, cat_x+38, cat_y-139)
+    draw_line(cat_x+33,cat_y-147, cat_x+38, cat_y-139)
+    #whiskers
+    glColor3f(0.8, 0.4, 0)
+    glPointSize(0.5)
+    draw_line(cat_x - 10, cat_y - 193, cat_x -20, cat_y - 188)
+    draw_line(cat_x - 10, cat_y - 195, cat_x -20, cat_y - 195)
+    draw_line(cat_x - 10, cat_y - 197, cat_x -20, cat_y - 202)
 
-        glColor3f(1, 1, 1)  
-        circle(1, (cat_x - 13, cat_y - 178)) 
-        circle(1, (cat_x + 17, cat_y - 178))  
+    draw_line(cat_x + 10, cat_y - 193, cat_x +20, cat_y - 188)
+    draw_line(cat_x + 10, cat_y - 195, cat_x +20, cat_y -195)
+    draw_line(cat_x + 10, cat_y - 197, cat_x +20, cat_y - 202)
 
-#basicdraw
-def draw_foodpan():  #sadman
+    #mouth
+    glColor3f(0,0,0)
+    if firework == True:
+        glPointSize(2)
+        circle(5,(cat_x,cat_y-205))
+    elif eating==False and unhappy==False:
+        glPointSize(0.5)
+        draw_line(cat_x-10,cat_y-202, cat_x-5, cat_y-206)
+        draw_line(cat_x-5, cat_y-206, cat_x-1, cat_y-201)
+        draw_line(cat_x+5, cat_y-206, cat_x-1, cat_y-201)
+        draw_line(cat_x+5, cat_y-206, cat_x+9, cat_y-202)
+    elif eating==True and unhappy==False:
+        glPointSize(1)
+        circle(3,(cat_x,cat_y-205))
+    elif unhappy==True:
+        glPointSize(1)
+        draw_line(cat_x-5, cat_y-206, cat_x-1, cat_y-201)
+        draw_line(cat_x+5, cat_y-206, cat_x-1, cat_y-201)
+
+    #tail
+    glPointSize(2)
+    glColor3f(0,0,0)
+    draw_line(cat_x-30, cat_y-240, cat_x-50,cat_y-225)
+    draw_line(cat_x-27, cat_y-235, cat_x-50,cat_y-215)
+    draw_line(cat_x-50, cat_y-215, cat_x-55,cat_y-215)
+    draw_line(cat_x-50, cat_y-225, cat_x-55,cat_y-230)
+    glPointSize(7)
+    circle(4, (cat_x-55, cat_y-222))
+
+    #paws
+    glPointSize(5)
+    glColor3f(1,0.8,0.8)
+    circle(3, (cat_x-17, cat_y-243))
+    circle(3, (cat_x, cat_y-243))
+def draw_foodpan(): #sadman
     global food_pan_empty, food, play, xaxis, yaxis 
-
-    if play == False:  
+    if play == False:
         glPointSize(4)
-        glColor3f(1, 0.2, 0.2)  #red
-        draw_line(xaxis - 80, -(yaxis - 30), xaxis - 6, -(yaxis - 30))  #B
-        draw_line(xaxis - 66, -(yaxis - 11), xaxis - 20, -(yaxis - 11))  #T
-        draw_line(xaxis - 80, -(yaxis - 30), xaxis - 66, -(yaxis - 11))  #L
-        draw_line(xaxis - 20, -(yaxis - 11), xaxis - 6, -(yaxis - 30))  #R
-
-        #food
+        glColor3f(1,0.2,0.2)
+        draw_line((xaxis-80) ,-(yaxis-30),(xaxis-6),-(yaxis-30)) #220,294
+        draw_line((xaxis-66) ,-(yaxis-11),(xaxis-20) ,-(yaxis-11)) #234.0 ,-289.0,281.0, -289.0
+        draw_line((xaxis-80) ,-(yaxis-30), (xaxis-66),-(yaxis-11)) #220.0 ,-270.0,234.0 ,-289.0
+        draw_line((xaxis-20), -(yaxis-11), (xaxis-6), -(yaxis-30)  )#281.0, -289.0,294.0 ,-270.0
         glPointSize(3)
-        glColor3f(0.26, 0.09, 0.09)  #Brown
+        glColor3f(0.26,0.09,0.09) 
         for item in food:
             circle(4, (item[0], item[1]))
-
-def draw_bed():  #sadman
+def draw_bed(): # sadman
     global play
-
-    if play == False:  
+    if play == False:
         glPointSize(5)
-        glColor3f(0, 0, 0) 
-        draw_line(xaxis - 590, yaxis - 580, xaxis - 500, yaxis - 580)  #b
-        draw_line(xaxis - 590, yaxis - 550, xaxis - 590, yaxis - 590)  #l
-        draw_line(xaxis - 500, yaxis - 580, xaxis - 500, yaxis - 590)  # Right edge
-
-        
-        glColor3f(0.4, 0.2, 0.05)  #brown
-        draw_line(xaxis - 585, yaxis - 575, xaxis - 500, yaxis - 575)
-
+        glColor3f(0,0,0)
+        # draw_line(xaxis - 590, yaxis -550, xaxis-500, yaxis-550)
+        draw_line(xaxis - 590, yaxis -580, xaxis-500, yaxis-580)
+        draw_line(xaxis - 590, yaxis -550, xaxis-590, yaxis-590)
+        draw_line(xaxis - 500, yaxis -580, xaxis-500, yaxis-590)
+        glColor3f(.4,.2,0.05)
+        draw_line(xaxis - 585, yaxis -575, xaxis-500, yaxis-575)
         #pillow
-        glColor3f(0.7, 0.2, 0.05)  #light brown
+        glColor3f(.7,.2,0.05)
         glPointSize(3)
-        circle(5, (xaxis - 582, yaxis - 567))  #pillow
-
-def draw_window():  #sadman
-    global day, play, d2n, n2d
-
-    if play == False:  
-        glColor3f(0, 0, 0)  
-        glPointSize(2)
-
-        #windowbox
-        draw_line(-width + 400, height - 400, width - 600, height - 400)  #t
-        draw_line(-width + 400, height - 600, width - 600, height - 600)  #b
-        draw_line(-width + 400, height - 400, -width + 400, height - 600)  #l
-        draw_line(width - 600, height - 400, width - 600, height - 600)  #r
-
+        circle(5, (xaxis-582, yaxis-567))
+def draw_window():#sadman
+    global day, play, n2d, d2n
+    glColor3f(0,0,0)
+    glPointSize(2)
+    #window
+    if play == False:
+        draw_line(-width + 400, height - 400, width - 600, height-400)
+        draw_line(-width + 400, height - 600, width - 600, height-600)
+        draw_line(-width + 400, height - 400, -width + 400, height - 600)
+        draw_line(width - 600, height-400, width - 600, height - 600)
         #sky
-        if day > 0.9:  #day
-            glColor3f(0, 0.7, 1)  #blue
-        else:  #night
-            g = max(0.1, day - 0.4)
-            b = max(0.1, day - 0.2)
-            glColor3f(0, g, b)  #light to dark gradually
+        if day > 0.9:
+            glColor3f(0,0.7,1)
+        else:
+            g= max(0.1, day-0.4)
+            b= max(0.1, day-0.2)
+            glColor3f(0,g,b)
         glPointSize(198)
-        draw_line(-width + 500, height - 500, width - 699, height - 500)  #skyfill
+        draw_line(-width + 500, height - 500, width - 699, height-500)
+        #sun
+        if 0.4<day<=1: 
+            h = height
+            inc = 0
+            if day == 1:
+                glColor3f(1,1,0)
+            elif 0.9 >= day > 0.4:
+                glColor3f(day-.2,day-.2,0)
+            if d2n == True and day < 1:
+                h = height - (1-day)*200
+            elif n2d == True and day < 1:
+                h = height - (1-day)*200 + inc
+                inc += 1
+            glPointSize(5)
+            circle(15, (-width + 450, h - 450))
+            circle(10, (-width + 450, h - 450))
+            circle(5, (-width + 450, h - 450))
+            glPointSize(2)
+            draw_line (-width + 425, h - 450, -width + 475, h-450)
+            draw_line (-width + 450, h - 425, -width + 450, h-475)
+            draw_line (-width + 435, h - 430, -width + 465, h - 470)
+            draw_line(-width + 435, h - 470, -width + 465, h - 430)
+       
 
-        #sunmoon
-        if day > 0.4:  #sun
-            glColor3f(1, 1, 0)  #yellow
-        else:  # moon
-            glColor3f(0.8, 0.8, 1)  
-        circle(15, (-width + 450, height - 450))  
 
-def windowcross():  # sadman
-    if play == False:  
-        glColor3f(0, 0, 0)  
+    #PLAYROOM
+    else: 
+        draw_line(-width + 400, height - 400, width - 400, height-400)
+        draw_line(-width + 400, height - 600, width - 400, height-600)
+        draw_line(-width + 400, height - 400, -width + 400, height - 600)
+        draw_line(width - 400, height-400, width - 400, height - 600)
+        #sky
+        if day > 0.9:
+            glColor3f(0,0.7,1)
+        else:
+            g= max(0.1, day-0.4)
+            b= max(0.1, day-0.2)
+            glColor3f(0,g,b)
+        glPointSize(198)
+        draw_line(-width + 500, height - 500, width - 499, height-500)
+        #sun
+        if 0.4<day<=1: 
+            h = height
+            inc = 0
+            if day == 1:
+                glColor3f(1,1,0)
+            elif 0.9 >= day > 0.4:
+                glColor3f(day-.2,day-.2,0)
+            if d2n == True and day < 1:
+                h = height - (1-day)*200
+            elif n2d == True and day < 1:
+                h = height - (1-day)*200 + inc
+                inc += 1
+            glPointSize(5)
+            circle(15, (-width + 450, h - 450))
+            circle(10, (-width + 450, h - 450))
+            circle(5, (-width + 450, h - 450))
+            glPointSize(2)
+            draw_line (-width + 425, h - 450, -width + 475, h-450)
+            draw_line (-width + 450, h - 425, -width + 450, h-475)
+            draw_line (-width + 435, h - 430, -width + 465, h - 470)
+            draw_line(-width + 435, h - 470, -width + 465, h - 430)
+        #window cross
+        
+def windowcross():#sadman
+    #window cross
+    if play == False:
+        glColor3f(0,0,0)
         glPointSize(1)
-
-        #y
-        draw_line(width - 700, height - 400, width - 700, height - 600)
-
-        #x
-        draw_line(-width + 400, height - 500, width - 600, height - 500)
-
-def draw_fish():  # sadman
+        draw_line(width -700, height - 400, width - 700, height-600)
+        draw_line(-width + 400, height - 500, width - 600, height-500)
+    else:
+        glColor3f(0,0,0)
+        glPointSize(1)
+        draw_line(width - 600, height-402, width - 600, height - 598)
+        draw_line(width -700, height - 402, width - 700, height-598)
+        draw_line(width -700, height - 402, width - 700, height-598)
+        draw_line(-width + 400, height - 502, width - 400, height-502)
+        draw_line(width -500, height - 402, width - 500, height-598)
+def draw_fish():#sadman
     global left, fish_x, fish_y
     if play == True and fishON == True:
         glPointSize(2)
-        glColor3f(0.0, 0.0, 1.0)  #blue
+        glColor3f(0.0, 0.0, 1.0)  # Set color to blue
         draw_line(fish_x - 15, fish_y, fish_x + 15, fish_y)
-        draw_line(fish_x - 15, fish_y - 20, fish_x + 15, fish_y - 20)
+        draw_line(fish_x - 15, fish_y-20, fish_x + 15, fish_y-20)
         draw_line(fish_x - 15, fish_y, fish_x - 27, fish_y - 10)
-        draw_line(fish_x - 15, fish_y - 20, fish_x - 27, fish_y - 10)
+        draw_line(fish_x - 15, fish_y-20, fish_x - 27, fish_y - 10)
         draw_line(fish_x + 15, fish_y, fish_x + 40, fish_y - 15)
-        draw_line(fish_x + 15, fish_y - 20, fish_x + 40, fish_y - 5)
-        draw_line(fish_x + 40, fish_y - 15, fish_x + 40, fish_y - 5)
+        draw_line(fish_x + 15, fish_y-20, fish_x + 40, fish_y-5)
+        draw_line(fish_x + 40, fish_y - 15, fish_x + 40, fish_y-5)
         #eye
-        circle(1, (fish_x - 12, fish_y - 7))
-
-def fish_animate(val):  # sadman
+        circle(1, (fish_x - 12, fish_y -7))
+def fish_animate(val):#sadman
     global fish_x, fish_y, fishON, fishgamepoint, left
     if fishON == True:
         if left == False:
-            fish_x -= 3  #move to left
+            
+            fish_x -= 3
         else:
-            fish_x += 3  #move to right
+            fish_x += 3 #left er dike ase, tai right e jabe
+            
 
         if fish_x > width - 350 or fish_x < width - 850:
             print("Game over")
-            print("Final Fishing Score: ", fishgamepoint)
+            print("Final Fishing Scoreww: ", fishgamepoint)
             fishON = False
             fishgamepoint = 0
-            fish_x = random.uniform((xaxis / 2) + 100, (-xaxis / 2) - 100)
+            fish_x = random.uniform((xaxis/2)+100, (-xaxis/2)-100)
             if fish_x < 0:
                 left = True
             else:
                 left = False
+            
             fish_y = -100
-
+        
     glutTimerFunc(20, fish_animate, 0)
     glutPostRedisplay()
+
+
 
 glutInit()
 glutInitDisplayMode(GLUT_RGBA)
