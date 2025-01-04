@@ -457,6 +457,16 @@ def draw_cat():
     circle(6, (cat_x - 15, cat_y - 180))  # Left eye placeholder
     circle(6, (cat_x + 15, cat_y - 180))  # Right eye placeholder
 
+    # Draw the pupils (black inner circles)
+    glColor3f(0, 0, 0)  # Black color for the pupils
+    circle(3, (cat_x - 15, cat_y - 180))  # Left pupil
+    circle(3, (cat_x + 15, cat_y - 180))  # Right pupil
+
+    # Add reflections in the eyes (small white circles)
+    glColor3f(1, 1, 1)  # White color for reflections
+    circle(1, (cat_x - 13, cat_y - 178))  # Reflection in left eye
+    circle(1, (cat_x + 17, cat_y - 178))  # Reflection in right eye
+
 
 def showScreen():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
