@@ -400,5 +400,45 @@ def mouseFunc(button, state, x, y):#srijon
             if cat_y < 20:
                 cat_y+=70
                 glutTimerFunc(300, come_down, 0)
-           
+
+
+
+
+
+
+
+
+#sadman
+def circle(radius, center):
+    d = 1 - radius  # Decision variable
+    x = 0
+    y = radius
+    circlepoints(x, y, center)
+    while x < y:
+        if d < 0:
+            d += 2 * x + 3
+            x += 1
+        else:
+            d += 2 * x - 2 * y + 5
+            x += 1
+            y -= 1
+        circlepoints(x, y, center)
+
+def circlepoints(x, y, center):
+    global xaxis, yaxis
+    glBegin(GL_POINTS)
+    x0 = x / xaxis
+    y0 = y / yaxis
+    ax = center[0] / xaxis
+    ay = center[1] / yaxis
+    glVertex2f(x0 + ax, y0 + ay)
+    glVertex2f(y0 + ax, x0 + ay)
+    glVertex2f(y0 + ax, -x0 + ay)
+    glVertex2f(x0 + ax, -y0 + ay)
+    glVertex2f(-x0 + ax, -y0 + ay)
+    glVertex2f(-y0 + ax, -x0 + ay)
+    glVertex2f(-y0 + ax, x0 + ay)
+    glVertex2f(-x0 + ax, y0 + ay)
+    glEnd()
+      
       
