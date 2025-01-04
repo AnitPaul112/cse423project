@@ -234,7 +234,49 @@ def playbutton(): #anit
             circle(12,(-ballbutton-30,150))
             circle(8,(-ballbutton-30,150))
             circle(5,(-ballbutton-30,150))
+def fireworkDisplay():#anit
+    v = None
+    global firework, fireworkLst, fireworkCircleRadius, height
+    if play == True and len(fireworkLst) > 0:
+        firework = True
+    else:
+        firework = False
+    for i in fireworkLst:
+        glColor3f(random.random(), random.random(), random.random()) 
+        fcircle(i[2], (i[0], i[1]))
+        if i[2] > 2 * height:
+            fireworkLst.remove(i)
+        fireworks_animate(v)
+    #print(fireworkLst)
 
+def toclear():  #anit
+    glColor3f(1,1,1)
+    glPointSize(200)
+    draw_line(width-300, height+700, width-300, height-1500)
+    glPointSize(100)
+    draw_line(width-850, height+700, width-850, height-1500)
+    glPointSize(300)
+    draw_line(width-850, height-750, width, height-750)
+    glPointSize(200)
+    draw_line(width-850, height-300, width, height-300)
+def fcirclepoints(x,y,center): #anit
+    global xaxis, yaxis, width, height
+    glBegin(GL_POINTS)
+    x0=x/xaxis
+    y0=y/yaxis
+    ax=center[0]/xaxis
+    ay=center[1]/yaxis
+    if play and (x0 + ax <= width - 400):
+
+        glVertex2f(x0 + ax, y0 + ay)
+        glVertex2f(y0 + ax, x0 + ay)
+        glVertex2f(y0 + ax, -x0 + ay)
+        glVertex2f(x0 + ax, -y0 + ay)
+        glVertex2f(-x0 + ax, -y0 + ay)
+        glVertex2f(-y0 + ax, -x0 + ay)
+        glVertex2f(-y0 + ax, x0 + ay)
+        glVertex2f(-x0 + ax, y0 + ay)
+    glEnd()     
 def playroomtoys(): #anit
     global rightgoalpost
     #ball
@@ -490,11 +532,6 @@ def draw_cat():  #sadman
         circle(1, (cat_x + 17, cat_y - 178))  
 
 
-
-
-
-
-
 #basicdraw
 def draw_foodpan():  #sadman
     global food_pan_empty, food, play, xaxis, yaxis 
@@ -512,9 +549,6 @@ def draw_foodpan():  #sadman
         glColor3f(0.26, 0.09, 0.09)  #Brown
         for item in food:
             circle(4, (item[0], item[1]))
-
-
-
 
 def draw_bed():  #sadman
     global play
