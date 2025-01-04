@@ -234,20 +234,7 @@ def playbutton(): #anit
             circle(12,(-ballbutton-30,150))
             circle(8,(-ballbutton-30,150))
             circle(5,(-ballbutton-30,150))
-def fireworkDisplay():#anit
-    v = None
-    global firework, fireworkLst, fireworkCircleRadius, height
-    if play == True and len(fireworkLst) > 0:
-        firework = True
-    else:
-        firework = False
-    for i in fireworkLst:
-        glColor3f(random.random(), random.random(), random.random()) 
-        fcircle(i[2], (i[0], i[1]))
-        if i[2] > 2 * height:
-            fireworkLst.remove(i)
-        fireworks_animate(v)
-    #print(fireworkLst)
+
 
 def toclear():  #anit
     glColor3f(1,1,1)
@@ -303,7 +290,71 @@ def playroomtoys(): #anit
             draw_line(-290,-290,-290,-220)
             draw_line(-250,-280,-250,-210)
             draw_line(-290,-220,-250,-210)
+def fireworkDisplay():#anit
+    v = None
+    global firework, fireworkLst, fireworkCircleRadius, height
+    if play == True and len(fireworkLst) > 0:
+        firework = True
+    else:
+        firework = False
+    for i in fireworkLst:
+        glColor3f(random.random(), random.random(), random.random()) 
+        fcircle(i[2], (i[0], i[1]))
+        if i[2] > 2 * height:
+            fireworkLst.remove(i)
+        fireworks_animate(v)
+    #print(fireworkLst)
+def healthbar():#anit
+    global health
+    a=-(xaxis-50)
+    b=yaxis-30
+    c=20
+    glPointSize(4)
+    glColor3f(1,0,0)
+    draw_line(-285,275,-280,263)
+    draw_line(-275,275,-280,263)
+    circle(1,(-280,270))
+    circle(1,(-285,273))
+    circle(1,(-275,273))
+    draw_line(-286,275,-280,263)
+    draw_line(-274,275,-280,263)
 
+    glPointSize(2)
+    glColor3f(0,0,0)
+    circle(12,(-280,270))
+    draw_line(-270,280,-155,280)
+    draw_line(-270,260,-155,260)
+    draw_line(-155,280,-155,260)
+    glPointSize(6)
+    glColor3f(0.4,0.8,0.4)
+    health=max(0,health)
+    for i in range(health):
+        circle(5,(a,b)) 
+        a+=c
+def showScreen():#anit
+    global health,unhappy
+    glClear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT)
+    glLoadIdentity()
+    draw_window()
+    fireworkDisplay()
+    toclear() #to hide the fireworks outside the window
+    draw_cat()
+    draw_foodpan()
+    healthbar()
+    draw_bed()
+    playbutton()
+    windowcross()
+    draw_fish()
+    
+    
+    if play==True and sleep==False:
+        playroomtoys()
+    if health<=0 and unhappy==False:
+        print("!!!Your pet is unhappy!!!")
+        unhappy=True
+    elif health>0:
+        unhappy=False    
+    glutSwapBuffers()
 def come_down(val):#srijon
     global cat_y, hungry 
     if cat_y > -50:
@@ -336,8 +387,6 @@ def specialKeyListener(key,x, y):#srijon fish game logic + move logic
 
 
     glutPostRedisplay() 
-
-
 
 def mouseFunc(button, state, x, y):#srijon
     global fishgamepoint, ballgamepoint, fish_x, fish_y, fishON, ballbuttonON, ballbutton, firework, fireworksCircleSpeed, fireworkCircleRadius, play, food_pan_empty, food, eating, cat_x,cat_y, nose, hungry, health, unhappy, sleep, day
@@ -443,13 +492,79 @@ def mouseFunc(button, state, x, y):#srijon
             if cat_y < 20:
                 cat_y+=70
                 glutTimerFunc(300, come_down, 0)
-
-
-
-
-
-
-
+def keyboardListener(key, x,y):
+    global ballx,cat_x,goal,ballgamepoint,health,ballbuttonON, rightgoalpost
+    if play==True and key== b'w' and abs(cat_x-ballx)<=40:
+        if health<=1:
+            ballbuttonON=False
+            print("Game over")
+            
+        else:    
+            ballx+=40
+            if ballx>270:
+                ballx=280
+                goal=False
+                if rightgoalpost == True:
+                    ballgamepoint+=1
+                    print("Yay goal! Score:",ballgamepoint)
+        
+    if play==True and key== b'q' and abs(cat_x-ballx)<=40:  
+        if health<=1:
+            ballbuttonON=False
+            print("Game over")
+            
+        else:   
+            ballx-=40
+            if ballx<-270:
+                ballx=-280  
+                goal=True 
+                if rightgoalpost == False:
+                    ballgamepoint+=1
+                    print("Yay goal! Score:",ballgamepoint)
+        
+          
+    glutPostRedisplay()         
+def hungry_announce(val):
+    global hungry,health, sleep
+    glutTimerFunc(6000, hungry_announce, 0)
+    if sleep == False:
+        if hungry==11 and play==False:
+            health-=1
+            print("I am hungry. Let's go eat")   
+        elif hungry==11 and play==True:
+            health-=1
+            if health <= 2:
+                print("Enough playing. Let's go eat first")
+        # elif hungry==0:
+        #     print("I am full")
+        hungry+=0.5
+        hungry=min(11,hungry)   
+    glutPostRedisplay()
+def sleep_announce(val): 
+    global sleep, hungry, day, health
+    glutTimerFunc(6000, sleep_announce, 0)
+    if sleep == True and health < 5:
+        health += 1
+    glutPostRedisplay()   
+def day_announce(val):
+    global day, d2n, n2d, sleep, health
+    glutTimerFunc(5000, day_announce, 0)
+    if day <= 0.1:
+        n2d = True
+        d2n = False
+    if day >=1:
+        d2n = True
+        n2d = False
+    if n2d == True and day < 1:
+        day += 0.1
+    elif d2n == True and day >= 0.1:
+        day -= 0.1
+    if day <=0.4 and sleep == False:
+        print("Time to sleep.")
+        health-=1
+    if day >=0.7 and sleep == True:
+        print('Time to wakey wakey.')
+    glutPostRedisplay()
 
 #sadman
 
@@ -457,7 +572,6 @@ sleep = True
 firework = True  
 sleep = False
 firework = False  
-
 
 def circle(radius, center): #sadman
     d = 1 - radius  #decision var
@@ -490,7 +604,6 @@ def circlepoints(x, y, center):
     glVertex2f(-y0 + ax, x0 + ay)
     glVertex2f(-x0 + ax, y0 + ay)
     glEnd()
-
 
 def draw_cat():  #sadman
     global cat_x, cat_y, sleep, firework
@@ -531,7 +644,6 @@ def draw_cat():  #sadman
         circle(1, (cat_x - 13, cat_y - 178)) 
         circle(1, (cat_x + 17, cat_y - 178))  
 
-
 #basicdraw
 def draw_foodpan():  #sadman
     global food_pan_empty, food, play, xaxis, yaxis 
@@ -569,7 +681,6 @@ def draw_bed():  #sadman
         glPointSize(3)
         circle(5, (xaxis - 582, yaxis - 567))  #pillow
 
-
 def draw_window():  #sadman
     global day, play, d2n, n2d
 
@@ -600,7 +711,6 @@ def draw_window():  #sadman
             glColor3f(0.8, 0.8, 1)  
         circle(15, (-width + 450, height - 450))  
 
-
 def windowcross():  # sadman
     if play == False:  
         glColor3f(0, 0, 0)  
@@ -611,7 +721,6 @@ def windowcross():  # sadman
 
         #x
         draw_line(-width + 400, height - 500, width - 600, height - 500)
-
 
 def draw_fish():  # sadman
     global left, fish_x, fish_y
@@ -628,9 +737,6 @@ def draw_fish():  # sadman
         #eye
         circle(1, (fish_x - 12, fish_y - 7))
 
-
-
-      
 def fish_animate(val):  # sadman
     global fish_x, fish_y, fishON, fishgamepoint, left
     if fishON == True:
@@ -654,4 +760,20 @@ def fish_animate(val):  # sadman
     glutTimerFunc(20, fish_animate, 0)
     glutPostRedisplay()
 
+glutInit()
+glutInitDisplayMode(GLUT_RGBA)
+glutInitWindowSize(width, height) 
+glutInitWindowPosition(0,0)
+wind =glutCreateWindow(b"PET CARE") 
 
+glClearColor(1,1,1, 1)
+glutDisplayFunc(showScreen) 
+glutSpecialFunc(specialKeyListener)
+glutMouseFunc(mouseFunc)
+glutKeyboardFunc(keyboardListener) 
+glutTimerFunc(3000, hungry_announce, 0)
+glutTimerFunc(3000, sleep_announce, 0)
+glutTimerFunc(5000, day_announce, 0)
+glutTimerFunc(20, fish_animate, 0)
+glutTimerFunc(20, fireworks_animate, 0)
+glutMainLoop()
