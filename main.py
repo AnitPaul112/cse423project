@@ -29,7 +29,7 @@ rightgoalpost= True #the goalpost is on right or left
 
 cat_x = 0.0 #cat will be show from center
 cat_y = -50 #below change if needed
-
+fireworkLst = []
 food =[]
 food.append((xaxis-67, -(yaxis-35)))
 food.append((xaxis-57, -(yaxis-35)))
