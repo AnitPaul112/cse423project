@@ -42,6 +42,108 @@ hungry = 10
 
 
 
+'''cse423 algo to draw'''
+def findzone(x1,y1,x2,y2):#srijon
+    dx=x2-x1
+    dy=y2-y1
+    if abs(dx)>abs(dy):
+        if(dx>=0 and dy>=0):
+            zone=0
+        elif(dx<=0 and dy>=0):
+            zone=3
+        elif(dx<=0 and dy<=0):
+            zone=4
+        elif(dx>=0 and dy<=0):
+            zone=7
+    else:
+        if(dx>=0 and dy>=0):
+            zone=1
+        elif(dx<=0 and dy>=0):
+            zone=2
+        elif(dx<=0 and dy<=0):
+            zone=5
+        elif(dx>=0 and dy<=0):
+            zone=6
+    return zone
+
+def zone0(zone,x,y):#srijon
+    if zone==0:
+        x1=x
+        y1=y
+    elif zone==1: 
+        x1=y 
+        y1=x 
+    elif zone==2:    
+        x1=y 
+        y1=-x    
+    elif zone==3: 
+        x1=-x
+        y1=y
+    elif zone==4: 
+        x1=-x
+        y1=-y
+    elif zone==5: 
+        x1=-y
+        y1=-x
+    elif zone==6:    
+        x1=-y
+        y1=x    
+    elif zone==7:     
+        x1=x
+        y1=-y
+    return (x1,y1)
+
+def originalzone(zone,x,y):#srijon
+
+    if zone==0:
+        x1=x
+        y1=y
+    elif zone==1:
+        x1=y
+        y1=x
+    elif zone==2:
+        x1=-y
+        y1=x
+    elif zone==3:
+        x1=-x
+        y1=y
+    elif zone==4:
+        x1=-x
+        y1=-y
+    elif zone==5:
+        x1=-y
+        y1=-x
+    elif zone==6:
+        x1=y
+        y1=-x
+    elif zone==7:
+        x1=x
+        y1=-y
+    return (x1,y1)   
+
+def draw_line(x1,y1,x2,y2): # srijon draw line
+    global xaxis,yaxis
+    zone=findzone(x1,y1,x2,y2)
+    x1,y1=zone0(zone,x1,y1)
+    x2,y2=zone0(zone,x2,y2)
+    dx=x2 -x1
+    dy=y2 -y1
+    d= 2*dy -dx
+    x=x1
+    y=y1
+    glBegin(GL_POINTS)
+    while x <x2:
+        xo,yo= originalzone(zone,x,y)
+        glVertex2f(xo/xaxis, yo/yaxis) #
+        x +=1
+        if d<0:
+            d+=2*dy
+        else:
+            d+=2*(dy- dx)
+            y+=1
+    glEnd()
+
+
 def playbutton(): #anit
     global play, fish_xbutton, fish_ybutton
     glColor3f(0,0.4,1)
@@ -299,4 +401,35 @@ def mouseFunc(button, state, x, y):#srijon
                 cat_y+=70
                 glutTimerFunc(300, come_down, 0)
            
-   
+def keyboardListener(key, x,y):#srijon
+    global ballx,cat_x,goal,ballgamepoint,health,ballbuttonON, rightgoalpost
+    if play==True and key== b'w' and abs(cat_x-ballx)<=40: 
+        if health<=1:
+            ballbuttonON=False
+            print("Game over")
+            
+        else:    
+            ballx+=40
+            if ballx>270:
+                ballx=280
+                goal=False
+                if rightgoalpost == True:
+                    ballgamepoint+=1
+                    print("Yay goal! Score:",ballgamepoint)
+        
+    if play==True and key== b'q' and abs(cat_x-ballx)<=40:  
+        if health<=1:
+            ballbuttonON=False
+            print("Game over")
+            
+        else:   
+            ballx-=40
+            if ballx<-270:
+                ballx=-280  
+                goal=True 
+                if rightgoalpost == False:
+                    ballgamepoint+=1
+                    print("Yay goal! Score:",ballgamepoint)
+        
+          
+    glutPostRedisplay()          
