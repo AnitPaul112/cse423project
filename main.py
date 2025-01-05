@@ -374,7 +374,7 @@ def healthbar():#anit
         a+=c
 def showScreen():#anit
     global health,unhappy
-    glClear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT)
+    glClear(GL_COLOR_BUFFER_BIT)
     glLoadIdentity()
     draw_window()
     fireworkDisplay()
