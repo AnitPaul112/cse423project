@@ -533,15 +533,16 @@ def mouseFunc(button, state, x, y):#srijon
             if cat_y < 20:
                 cat_y+=70
                 glutTimerFunc(300, come_down, 0)
-def keyboardListener(key, x,y):
+
+def keyboardListener(key, x,y): #srijon ball move logic
     global ballx,cat_x,goal,ballgamepoint,health,ballbuttonON, rightgoalpost
-    if play==True and key== b'w' and abs(cat_x-ballx)<=40:
+    if play==True and key== b'w' and abs(cat_x-ballx)<=40: #in 40 range cat an ball
         if health<=1:
             ballbuttonON=False
             print("Game over")
             
         else:    
-            ballx+=40
+            ballx+=40 #move by 40 on kick
             if ballx>270:
                 ballx=280
                 goal=False
@@ -564,8 +565,11 @@ def keyboardListener(key, x,y):
                     print("Yay goal! Score:",ballgamepoint)
         
           
-    glutPostRedisplay()         
-def hungry_announce(val):
+    glutPostRedisplay()  
+
+
+
+def hungry_announce(val): #srijon  hungry logic
     global hungry,health, sleep
     glutTimerFunc(6000, hungry_announce, 0)
     if sleep == False:
@@ -576,18 +580,19 @@ def hungry_announce(val):
             health-=1
             if health <= 2:
                 print("Enough playing. Let's go eat first")
-        # elif hungry==0:
-        #     print("I am full")
         hungry+=0.5
         hungry=min(11,hungry)   
     glutPostRedisplay()
-def sleep_announce(val): 
+
+
+def sleep_announce(val): # srijon sleep announcement and helth logic
     global sleep, hungry, day, health
     glutTimerFunc(6000, sleep_announce, 0)
     if sleep == True and health < 5:
         health += 1
-    glutPostRedisplay()   
-def day_announce(val):
+    glutPostRedisplay() 
+
+def day_announce(val): #srijon day announcemnt
     global day, d2n, n2d, sleep, health
     glutTimerFunc(5000, day_announce, 0)
     if day <= 0.1:
