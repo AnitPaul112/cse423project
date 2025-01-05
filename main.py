@@ -305,6 +305,21 @@ def fireworks_animate(v):#anit
             fireworkLst[i][2] += fireworksCircleSpeed
         glutPostRedisplay()
         
+def fireworkDisplay():#anit
+    v = None
+    global firework, fireworkLst, fireworkCircleRadius, height
+    if play == True and len(fireworkLst) > 0:
+        firework = True
+    else:
+        firework = False
+    for i in fireworkLst:
+        glColor3f(random.random(), random.random(), random.random()) 
+        fcircle(i[2], (i[0], i[1]))
+        if i[2] > 2 * height:
+            fireworkLst.remove(i)
+        fireworks_animate(v)
+    #print(fireworkLst)
+
 def playroomtoys(): #anit
     global rightgoalpost
     #ball
@@ -331,20 +346,6 @@ def playroomtoys(): #anit
             draw_line(-290,-290,-290,-220)
             draw_line(-250,-280,-250,-210)
             draw_line(-290,-220,-250,-210)
-def fireworkDisplay():#anit
-    v = None
-    global firework, fireworkLst, fireworkCircleRadius, height
-    if play == True and len(fireworkLst) > 0:
-        firework = True
-    else:
-        firework = False
-    for i in fireworkLst:
-        glColor3f(random.random(), random.random(), random.random()) 
-        fcircle(i[2], (i[0], i[1]))
-        if i[2] > 2 * height:
-            fireworkLst.remove(i)
-        fireworks_animate(v)
-    #print(fireworkLst)
 def healthbar():#anit
     global health
     a=-(xaxis-50)
