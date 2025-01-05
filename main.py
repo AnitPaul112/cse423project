@@ -276,7 +276,27 @@ def fcirclepoints(x,y,center): #anit
         glVertex2f(-y0 + ax, -x0 + ay)
         glVertex2f(-y0 + ax, x0 + ay)
         glVertex2f(-x0 + ax, y0 + ay)
-    glEnd()     
+    glEnd() 
+def fcircle(radius,center): #(5,(1,2)) anit
+    for _ in range(10):
+        d=1-radius
+        x=0
+        y=radius 
+        
+        glPointSize(3)
+        fcirclepoints(x,y,center)
+        while(x<y):
+            
+                if(d<0):
+                    d=d+ 2*x + 3
+                    x+=1
+                else:
+                    d= d+ 2*x - 2*y + 5 
+                    x+=1
+                    y-=1
+                if random.random() < 0.1:
+                    fcirclepoints(x,y,center)
+        radius -= 30    
 def fireworks_animate(v):#anit
     global fireworkCircleRadius, fireworksCircleSpeed, play
 
